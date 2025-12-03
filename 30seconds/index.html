@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jogo 30 Segundos Evangélico - Divirta-se testando seu conhecimento bíblico">
+    <meta name="keywords" content="bíblia, jogo, evangélico, cristão, 30 segundos, palavras bíblicas">
+    <title>30 Segundos Evangélico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e configurações gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c5aa0;
+            --primary-dark: #1e3a6a;
+            --secondary: #e6b325;
+            --secondary-dark: #d4a21e;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 12px;
+            --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-decoration {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.1;
+        }
+
+        .header-decoration:nth-child(1) { top: 10px; left: 20px; }
+        .header-decoration:nth-child(2) { top: 10px; right: 20px; }
+        .header-decoration:nth-child(3) { bottom: 10px; left: 30px; }
+        .header-decoration:nth-child(4) { bottom: 10px; right: 30px; }
+
+        header h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navegação */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--dark);
+            padding: 18px 24px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        .nav-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        /* Seções principais */
+        section {
+            display: none;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Página inicial */
+        .welcome-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .welcome-icon {
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .welcome-container h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 2.4rem;
+        }
+
+        .welcome-container p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: var(--gray);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 280px;
+            background: var(--light);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-top: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature i {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .feature p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Página do jogo */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .team-info {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .team {
+            text-align: center;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            background: var(--light);
+            min-width: 200px;
+            transition: var(--transition);
+        }
+
+        .team.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(44, 90, 160, 0.3);
+        }
+
+        .team.active h3,
+        .team.active .team-score {
+            color: white;
+        }
+
+        .team h3 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .team-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .game-controls-top {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card-container {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 900px;
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-container::before {
+            content: "✝";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            opacity: 0.08;
+        }
+
+        .card-container::after {
+            content: "🕊️";
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.08;
+        }
+
+        .card-title {
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-family: 'Merriweather', serif;
+        }
+
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .word-card {
+            background: var(--light);
+            padding: 25px 20px;
+            border-radius: var(--border-radius);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border: 2px solid var(--light-gray);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-height: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .word-card:hover:not(.word-guessed):not(.word-passed) {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 15px rgba(44, 90, 160, 0.1);
+        }
+
+        .word-card.word-guessed {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-color: var(--success);
+            color: #155724;
+        }
+
+        .word-card.word-passed {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-color: var(--warning);
+            color: #856404;
+        }
+
+        .word-status {
+            font-size: 0.9rem;
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .word-guessed .word-status {
+            color: var(--success);
+        }
+
+        .word-passed .word-status {
+            color: var(--warning);
+        }
+
+        .word-hint-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .word-hint-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .hint-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .hint-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hint-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .hint-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .timer-container {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(44, 90, 160, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-container.warning {
+            background: linear-gradient(135deg, #ff6b6b 0%, var(--danger) 100%);
+        }
+
+        .timer {
+            font-size: 4.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: white;
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 160px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #e0a800 100%);
+            color: var(--dark);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #bd2130 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+
+        .settings-panel {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Página do placar */
+        .score-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .score-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-header h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+
+        .teams-score {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .team-score-card {
+            flex: 1;
+            min-width: 280px;
+            background: var(--light);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border-top: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .team-score-card.team-b {
+            border-top-color: var(--success);
+        }
+
+        .team-score-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-score-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .score-value {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .team-score-card.team-b .score-value {
+            color: var(--success);
+        }
+
+        .score-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .game-history {
+            margin-top: 50px;
+            background: var(--light);
+            padding: 30px;
+            border-radius: var(--border-radius);
+        }
+
+        .game-history h3 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .history-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .history-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .history-list::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 10px;
+        }
+
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .history-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .history-item:hover {
+            background: rgba(44, 90, 160, 0.05);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-time {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Página sobre */
+        .about-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .about-header h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        .about-features {
+            flex: 1;
+            min-width: 280px;
+            background: var(--light);
+            padding: 30px;
+            border-radius: var(--border-radius);
+        }
+
+        .about-features h3 {
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .about-features ul {
+            list-style: none;
+        }
+
+        .about-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-features li:last-child {
+            border-bottom: none;
+        }
+
+        .about-features i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-top: 40px;
+        }
+
+        .instructions h3 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .instructions ol {
+            padding-left: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+
+        .instructions strong {
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+            font-size: 1.8rem;
+        }
+
+        .footer-icons a {
+            color: white;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .footer-icons a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .github-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .words-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .timer {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.9rem;
+            }
+            
+            .nav-btn span {
+                display: none;
+            }
+            
+            .nav-btn {
+                padding: 15px;
+                font-size: 1.2rem;
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .word-card {
+                font-size: 1.2rem;
+                min-height: 120px;
+            }
+            
+            .timer {
+                font-size: 2.8rem;
+            }
+            
+            .btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+                min-width: 140px;
+            }
+            
+            .score-value {
+                font-size: 3.5rem;
+            }
+            
+            .welcome-container,
+            .card-container,
+            .score-container,
+            .about-container {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-header {
+                flex-direction: column;
+            }
+            
+            .words-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team {
+                min-width: 100%;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .welcome-icon {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* Animações */
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* Utilitários */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header-decoration">✝</div>
+        <div class="header-decoration">🕊️</div>
+        <div class="header-decoration">⚓</div>
+        <div class="header-decoration">📖</div>
+        <h1><i class="fas fa-church"></i> 30 Segundos Evangélico</h1>
+        <p>Teste seu conhecimento bíblico explicando palavras em apenas 30 segundos!</p>
+    </header>
+
+    <!-- Navegação -->
+    <nav>
+        <button class="nav-btn active" onclick="showPage('home')">
+            <i class="fas fa-home"></i><span>Início</span>
+        </button>
+        <button class="nav-btn" onclick="showPage('game')">
+            <i class="fas fa-gamepad"></i><span>Jogar</span>
+        </button>
+        <button class="nav-btn" onclick="showPage('score')">
+            <i class="fas fa-chart-bar"></i><span>Placar</span>
+        </button>
+        <button class="nav-btn" onclick="showPage('about')">
+            <i class="fas fa-info-circle"></i><span>Sobre</span>
+        </button>
+    </nav>
+
+    <!-- Seção Início -->
+    <section id="home" class="active">
+        <div class="welcome-container">
+            <div class="welcome-icon">
+                <i class="fas fa-bible"></i>
+            </div>
+            <h2>Bem-vindo ao 30 Segundos Evangélico!</h2>
+            <p>Um jogo emocionante onde você precisa explicar palavras e expressões bíblicas para sua equipe adivinhar em apenas 30 segundos. Teste seu conhecimento bíblico e sua habilidade de comunicação!</p>
+            <p>Divirta-se com amigos e familiares enquanto aprende mais sobre a Bíblia de uma forma interativa e divertida.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-stopwatch"></i>
+                    <h3>30 Segundos</h3>
+                    <p>Tempo limite para cada rodada, tornando o jogo dinâmico e emocionante.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <h3>Multijogador</h3>
+                    <p>Jogue com amigos e familiares em equipes para mais diversão.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Conteúdo Bíblico</h3>
+                    <p>Mais de 380 palavras e expressões bíblicas para explorar e aprender.</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary mt-20" onclick="showPage('game')" style="padding: 18px 45px; font-size: 1.3rem;">
+                <i class="fas fa-play-circle"></i> Começar a Jogar
+            </button>
+        </div>
+    </section>
+
+    <!-- Seção Jogo -->
+    <section id="game">
+        <div class="game-container">
+            <!-- Cabeçalho do Jogo -->
+            <div class="game-header">
+                <div class="team-info">
+                    <div class="team active" id="teamA">
+                        <h3><i class="fas fa-users"></i> Equipe A</h3>
+                        <div class="team-score" id="teamAScore">0</div>
+                        <div class="current-turn">JOGANDO AGORA</div>
+                    </div>
+                    <div class="team" id="teamB">
+                        <h3><i class="fas fa-users"></i> Equipe B</h3>
+                        <div class="team-score" id="teamBScore">0</div>
+                        <div class="current-turn">AGUARDANDO</div>
+                    </div>
+                </div>
+                
+                <div class="game-controls-top">
+                    <button class="btn btn-secondary btn-small" onclick="toggleSounds()" id="soundToggle">
+                        <i class="fas fa-volume-up"></i> Som
+                    </button>
+                    <button class="btn btn-secondary btn-small" onclick="toggleFullscreen()">
+                        <i class="fas fa-expand"></i> Tela Cheia
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Container da Carta -->
+            <div class="card-container">
+                <h2 class="card-title"><i class="fas fa-scroll"></i> Carta do Jogo</h2>
+                
+                <!-- Grid de Palavras -->
+                <div class="words-grid" id="wordsGrid">
+                    <!-- As palavras serão inseridas aqui via JavaScript -->
+                </div>
+                
+                <!-- Timer -->
+                <div class="timer-container" id="timerContainer">
+                    <div><i class="fas fa-clock"></i> Tempo Restante</div>
+                    <div class="timer" id="timer">30</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="guessedCount">0</span>
+                            <span>Acertadas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="passedCount">0</span>
+                            <span>Passadas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="remainingCount">5</span>
+                            <span>Restantes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controles do Jogo -->
+                <div class="game-controls">
+                    <button class="btn btn-success" onclick="markWord('correct')" id="correctBtn">
+                        <i class="fas fa-check-circle"></i> Acertou (+1 ponto)
+                    </button>
+                    <button class="btn btn-warning" onclick="markWord('pass')" id="passBtn">
+                        <i class="fas fa-forward"></i> Passar (<span id="passesLeft">2</span> restantes)
+                    </button>
+                    <button class="btn btn-primary" onclick="newCard()">
+                        <i class="fas fa-random"></i> Nova Carta
+                    </button>
+                    <button class="btn btn-danger" onclick="endTurn()">
+                        <i class="fas fa-stop-circle"></i> Finalizar Turno
+                    </button>
+                </div>
+                
+                <!-- Painel de Configurações -->
+                <div class="settings-panel">
+                    <div class="setting-item">
+                        <span>Som:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="soundSwitch" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>Teclas de atalho:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="shortcutsSwitch" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>Animações:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="animationsSwitch" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Dicas -->
+    <div class="hint-modal" id="hintModal">
+        <div class="hint-content">
+            <button class="hint-close" onclick="closeHint()">&times;</button>
+            <h3><i class="fas fa-lightbulb"></i> Dica</h3>
+            <div id="hintText"></div>
+        </div>
+    </div>
+
+    <!-- Seção Placar -->
+    <section id="score">
+        <div class="score-container">
+            <div class="score-header">
+                <h2><i class="fas fa-trophy"></i> Placar do Jogo</h2>
+                <p>Acompanhe a pontuação das equipes</p>
+            </div>
+            
+            <div class="teams-score">
+                <div class="team-score-card">
+                    <h3><i class="fas fa-users"></i> Equipe A</h3>
+                    <div class="score-value" id="scoreTeamA">0</div>
+                    <div class="score-controls">
+                        <button class="btn btn-primary btn-small" onclick="adjustScore('A', 1)">
+                            <i class="fas fa-plus"></i> Ponto
+                        </button>
+                        <button class="btn btn-danger btn-small" onclick="adjustScore('A', -1)">
+                            <i class="fas fa-minus"></i> Ponto
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="adjustScore('A', 5)">
+                            <i class="fas fa-bolt"></i> +5
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="team-score-card team-b">
+                    <h3><i class="fas fa-users"></i> Equipe B</h3>
+                    <div class="score-value" id="scoreTeamB">0</div>
+                    <div class="score-controls">
+                        <button class="btn btn-success btn-small" onclick="adjustScore('B', 1)">
+                            <i class="fas fa-plus"></i> Ponto
+                        </button>
+                        <button class="btn btn-danger btn-small" onclick="adjustScore('B', -1)">
+                            <i class="fas fa-minus"></i> Ponto
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="adjustScore('B', 5)">
+                            <i class="fas fa-bolt"></i> +5
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-history">
+                <h3><i class="fas fa-history"></i> Histórico do Jogo</h3>
+                <ul class="history-list" id="historyList">
+                    <!-- Histórico será inserido aqui -->
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="resetGame()">
+                    <i class="fas fa-redo"></i> Reiniciar Jogo
+                </button>
+                <button class="btn btn-secondary" onclick="exportScores()">
+                    <i class="fas fa-download"></i> Exportar Placar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="about">
+        <div class="about-container">
+            <div class="about-header">
+                <h2><i class="fas fa-info-circle"></i> Sobre o Jogo</h2>
+                <p>Conheça mais sobre o 30 Segundos Evangélico</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>O <strong>30 Segundos Evangélico</strong> é uma adaptação cristã do famoso jogo "30 Segundos", desenvolvido para proporcionar diversão e aprendizado bíblico em grupos de todas as idades.</p>
+                    <p>Com mais de <strong>380 palavras e expressões bíblicas</strong> organizadas em cartas, o jogo desafia os participantes a explicarem conceitos bíblicos em apenas 30 segundos, testando não apenas o conhecimento das Escrituras, mas também a habilidade de comunicação e trabalho em equipe.</p>
+                    <p>O jogo é perfeito para encontros de células, grupos de jovens, reuniões familiares ou qualquer ocasião onde se queira unir diversão e edificação espiritual.</p>
+                    <p><strong>Desenvolvido com HTML, CSS e JavaScript</strong>, o jogo é totalmente responsivo e funciona em qualquer dispositivo com navegador web.</p>
+                </div>
+                
+                <div class="about-features">
+                    <h3><i class="fas fa-star"></i> Características</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Interface elegante e responsiva</li>
+                        <li><i class="fas fa-check-circle"></i> Mais de 380 palavras bíblicas</li>
+                        <li><i class="fas fa-check-circle"></i> Cronômetro com alertas visuais</li>
+                        <li><i class="fas fa-check-circle"></i> Sistema de pontuação completo</li>
+                        <li><i class="fas fa-check-circle"></i> Modo multijogador para equipes</li>
+                        <li><i class="fas fa-check-circle"></i> Design com temática cristã</li>
+                        <li><i class="fas fa-check-circle"></i> Sistema de dicas bíblicas</li>
+                        <li><i class="fas fa-check-circle"></i> Teclas de atalho para jogabilidade rápida</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3><i class="fas fa-graduation-cap"></i> Como Jogar</h3>
+                <ol>
+                    <li><strong>Divida os jogadores</strong> em duas equipes (Equipe A e Equipe B).</li>
+                    <li><strong>Na vez de uma equipe</strong>, um jogador tenta explicar as 5 palavras da carta em 30 segundos.</li>
+                    <li><strong>O jogador não pode dizer</strong> a palavra escrita nem partes dela.</li>
+                    <li><strong>Cada palavra adivinhada</strong> corretamente vale 1 ponto para a equipe.</li>
+                    <li><strong>Cada equipe tem direito</strong> a 2 passes por rodada (pular uma palavra difícil).</li>
+                    <li><strong>Alternem os turnos</strong> entre as equipes até completar o número desejado de rodadas.</li>
+                    <li><strong>A equipe com mais pontos</strong> ao final vence o jogo!</li>
+                </ol>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <h3>Teclas de Atalho</h3>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                    <div style="background: var(--light); padding: 15px 25px; border-radius: var(--border-radius);">
+                        <strong>Espaço</strong> - Marcar como acertado
+                    </div>
+                    <div style="background: var(--light); padding: 15px 25px; border-radius: var(--border-radius);">
+                        <strong>P</strong> - Passar palavra
+                    </div>
+                    <div style="background: var(--light); padding: 15px 25px; border-radius: var(--border-radius);">
+                        <strong>N</strong> - Nova carta
+                    </div>
+                    <div style="background: var(--light); padding: 15px 25px; border-radius: var(--border-radius);">
+                        <strong>E</strong> - Finalizar turno
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary" onclick="showPage('game')">
+                    <i class="fas fa-play-circle"></i> Começar a Jogar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <p>30 Segundos Evangélico &copy; <span id="currentYear"></span> - Um jogo para diversão e aprendizado bíblico</p>
+            <div class="footer-icons">
+                <a href="https://github.com" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" title="Compartilhar no WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" title="Compartilhar no Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" title="Enviar por Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p>Desenvolvido com <i class="fas fa-heart" style="color: #ff6b6b;"></i> para a comunidade cristã</p>
+            
+            <a href="https://github.com" target="_blank" class="github-link">
+                <i class="fab fa-github"></i> Ver no GitHub
+            </a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ============================================
+        // CONFIGURAÇÕES E CONSTANTES
+        // ============================================
+        const TOTAL_TIME = 30;
+        const MAX_PASSES = 2;
+        const BONUS_POINTS = 2; // Pontos extras por completar todas as palavras
+        
+        // Banco de cartas completo (80 cartas com 5 palavras cada)
+        const cartas = [
+            ["Saltério", "Címbalos", "Flautas", "Trombeta de Prata", "Sistro"],
+            ["Lavrador", "Copeiro", "Algemador", "Ourives", "Carpinteiro"],
+            ["Terremoto", "Saraiva", "Trevas", "Vento oriental", "Orvalho"],
+            ["Pedras vivas", "Cedro de Líbano", "Lajotas", "Alvenaria", "Hosana"],
+            ["Querubins", "Serafins", "Leviatã", "Tronos", "Nefilins"],
+            ["Lepra", "Fluxo de sangue", "Coroa de Espinhos", "Perdoar", "Orar"],
+            ["Semear", "Bispo", "Zimbro", "Mandrágora", "Oliveira"],
+            ["Apóstolo", "Ancião", "Zelo", "Orion", "Canga"],
+            ["Prensa", "Cesto", "Foice", "Sétimo", "Remos"],
+            ["Âncora", "Véspera", "Marinheiros", "Carmesim", "Escarlate"],
+            ["Escudo da fé", "Cota de malha", "Cristal", "Átrio", "Umbral"],
+            ["Alvenaria", "Levita", "Bode Expiatório", "Espada de dois gumes", "Testemunha Fiel"],
+            ["Romanos 12;1", "Etíope", "Mt 11;28", "Tabita", "Priscila e Áquila"],
+            ["Herodes Antipas", "Sombra de Pedro", "Figueira Estéril", "Vaso de Oleiro", "Targum"],
+            ["Dedicação", "Lua nova", "Purim", "Adoção", "Justiça"],
+            ["Cedro", "Sicômoro", "Jaspe", "Lamentação", "Intercessão"],
+            ["Urso", "Proskynesis", "Quiriate-Jearim", "Vinagre", "Ervas amargas"],
+            ["Mel do Céu", "Três e meia", "Campainhas de Ouro", "Cinto de Couro", "Sete"],
+            ["Novo céu e Nova Terra", "Milênio", "Besta do Apocalipse", "Abominação", "Cohamim"],
+            ["Proselitismo", "Pisga", "Dilúvio", "Eva", "No Princípio"],
+            ["Enoque", "Noé", "Oração", "Rei Salomão", "Sansão"],
+            ["Torre de Babel", "Moisés", "Josué", "Cortaram o Cabelo", "Filho da Promessa"],
+            ["Gideão", "II Crônicas 7;14", "Tabernáculo", "Jó", "Fariseus"],
+            ["Mar Vermelho", "Maria Madalena", "Tome", "Monte Sinai", "Herodes"],
+            ["Arca de Noé", "Ovelha perdida", "Gêneses", "Erguer Mãos", "Juízes"],
+            ["Cobrir a Cabeça", "Monarquia", "Zodíaco", "Cometa", "Imposição das Mãos"],
+            ["Arca da Aliança", "Harpã", "Selo", "Espinhos", "Parábolas"],
+            ["Milagre", "Fé", "Apóstolo", "Arrependimento", "Nazaré"],
+            ["Jordão", "Galileia", "Gólgota", "Damasco", "Rocha"],
+            ["Pomba", "Trigo", "Anunciação", "Ascensão", "Graça"],
+            ["Propiciação", "Bom-samaritano", "Êxodo", "Evangelho", "Provérbios"],
+            ["Leão de Judá", "Bodas de Caná", "Bronze", "Bezerro de Bronze", "Ramsés"],
+            ["Eliseu", "Débora", "Rebeca", "Herodias", "Rocha"],
+            ["Sombras que retrocedem", "Cego de Betsaida", "Paralisia", "Paralisia de 38 anos", "Pentateuco"],
+            ["Teofania", "Eleição", "Justificação", "Ladrão na Cruz", "Altar de Holocausto"],
+            ["Candelabro de Ouro", "Urim e Tumim", "Tempestade acalmada", "Endemonhado", "Maranata"],
+            ["Amém", "Selah", "Evangelho", "Zaqueu", "Barnabé"],
+            ["Belzebu", "Onésimo", "Antioquia", "Laodiceia", "Gomorra"],
+            ["Amigo Oportuno", "Pérgamo", "Sardes", "Amigos-da-meia-noite", "O Juiz Iníquo"],
+            ["O Credor Incompassivo", "Voto do Nazireu", "Cativeiro babilônico", "Linho", "Fundo"],
+            ["Trombeta", "Sacrifício de ações de graças", "Holocausto", "Libação", "Primícias"],
+            ["Dízimos", "Concubina", "Sogro", "Cunhado", "Aia"],
+            ["Primogênito", "Salmos 121:1", "Samaria", "Jericó", "Jordão"],
+            ["João Batista", "Golias", "Peixe Grande", "Tábuas da Lei", "Vara de Moisés"],
+            ["Arca de Aliança", "Curar os enfermos", "Andar sobre as águas", "Adorar", "Vencer Gigante"],
+            ["Diácono", "Arruda", "Angústia", "Gozo", "Temor"],
+            ["Compaixão", "Evangelista", "Sião", "Horebe", "Tabor"],
+            ["Arado", "Tempo de Angústia", "Nau", "Sétimo dia", "Lua Nova"],
+            ["Vela", "Púrpura", "Branco", "Azul", "Capacete da salvação"],
+            ["Ouro de Ofir", "Berilo", "Coluna", "Fronteira", "Plenitude do Tempo"],
+            ["Alfa e Ômega", "Pedra Angular", "Rocha da Salvação", "João 3;16", "Asafe"],
+            ["Lídia", "Filemom", "Agabo", "Epafrodito", "Simão Mago"],
+            ["Lenço de Paulo", "Portas da prisão", "Rolo de Livro", "Geniza", "Pentecoste"],
+            ["Pargod", "Expiação", "Redenção", "Santidade", "Absinto"],
+            ["Cristal", "Bem-Aventurado", "Extorsão", "Leão", "Camelo"],
+            ["Ararate", "Megido", "Pão Asmo", "Carne de Porco", "Seis"],
+            ["Vestes de Salomão", "Doze", "Peitoral do Juízo", "Mitra", "Gog e Magog"],
+            ["União", "Oferta", "Levirato", "Teruma", "Sinédrio"],
+            ["Adão", "Serpente", "Jardim do Éden", "Caim", "Sabedoria"],
+            ["Isaac", "Abraão", "Rei Davi", "Jonas", "Daniel"],
+            ["Arca de Noé", "Rio Eufrates", "Cálice", "Peixe", "Cruz"],
+            ["Rute", "Ester", "Multiplicação", "Pedro", "Lázaro"],
+            ["Apocalipse", "Jordão", "Judas", "Maná", "Pilatos"],
+            ["Jericó", "Lava-pés", "Profetas", "Sacerdócio", "Teocracia"],
+            ["Estrela da Manhã", "Meteoros", "Prostração", "Arco-Íris", "Pão e Vinho"],
+            ["Cajado", "Lâmpada", "Criação", "Ressurreição", "Perdão"],
+            ["Profeta", "Salvação", "Anjo", "Jerusalém", "Egito"],
+            ["Getsêmani", "Patmos", "Nínive", "Cordeiro", "Figueira"],
+            ["Sal", "Transfiguração", "Aliança", "Redenção", "Semeador"],
+            ["Filho Pródigo", "Salmos", "Porta", "Videira", "Pão da Vida"],
+            ["Serpente de Bronze", "Árvore da Vida", "Elias", "José do Egito", "Sara"],
+            ["Raabe", "Água em Mara", "Saduceus", "Filho Sunamita", "Escribas"],
+            ["Sinóticos", "Epístolas", "Cristofania", "Glorificação", "Regeneração"],
+            ["Sangue Abel", "Pá", "Efode", "Véu do Templo", "Maldição da Figueira"],
+            ["Hosana", "Emanuel", "Abba", "Aleluia", "Messias"],
+            ["Mefibosete", "Silas", "Ló", "Cornélio", "Apolos"],
+            ["Éfeso", "Sodoma", "Betânia", "Betel", "Tiatira"],
+            ["Azeite", "Primícias", "Lázaro e o Rico", "Algemas", "Cilício"],
+            ["Nardo", "Cevada", "Cântaro", "Incenso", "Fogo do Céu"]
+        ];
+        
+        // Banco de dicas (pode ser expandido)
+        const dicas = {
+            "Saltério": "Livro de cânticos na Bíblia, também conhecido como Salmos.",
+            "Címbalos": "Instrumento musical de percussão usado no templo.",
+            "Flautas": "Instrumento de sopro mencionado em Daniel 3:5.",
+            "Trombeta de Prata": "Usada para convocar o povo e nas festas sagradas.",
+            "Sistro": "Instrumento musical egípcio, possivelmente usado pelos israelitas.",
+            "Lavrador": "Aquele que cultiva a terra, como na parábola do semeador.",
+            "Arca da Aliança": "Objeto sagrado que continha as tábuas da lei.",
+            "Maná": "Alimento miraculoso que Deus enviou no deserto.",
+            "Cordeiro": "Símbolo de Jesus como sacrifício pascal.",
+            "Pentecostes": "Festa judaica quando o Espírito Santo foi derramado.",
+            "Apóstolo": "Enviado, discípulo escolhido por Jesus.",
+            "Propiciação": "Ato de tornar favorável, sacrifício por nossos pecados.",
+            "Redenção": "Resgate, libertação através de Cristo.",
+            "Serafins": "Seres angelicais que louvam a Deus em Isaías 6.",
+            "Querubins": "Anjos que guardam o caminho para a árvore da vida."
+        };
+        
+        // ============================================
+        // VARIÁVEIS DO JOGO
+        // ============================================
+        let currentTeam = 'A';
+        let teamAScore = 0;
+        let teamBScore = 0;
+        let passesLeft = MAX_PASSES;
+        let timerInterval;
+        let timeLeft = TOTAL_TIME;
+        let currentCard = [];
+        let gameHistory = [];
+        let selectedWordIndex = -1;
+        let soundsEnabled = true;
+        let shortcutsEnabled = true;
+        let animationsEnabled = true;
+        let wordsState = []; // 0 = não jogada, 1 = acertada, 2 = passada
+        
+        // ============================================
+        // FUNÇÕES PRINCIPAIS
+        // ============================================
+        
+        // Navegação fluida entre páginas
+        function showPage(pageId) {
+            // Esconde todas as seções
+            document.querySelectorAll("section").forEach(sec => {
+                sec.classList.remove("active");
+            });
+            
+            // Mostra a seção solicitada
+            document.getElementById(pageId).classList.add("active");
+            
+            // Atualiza a navegação ativa
+            document.querySelectorAll(".nav-btn").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            
+            // Encontra o botão correspondente à página
+            const navButtons = document.querySelectorAll(".nav-btn");
+            for (let btn of navButtons) {
+                if (btn.onclick && btn.onclick.toString().includes(`'${pageId}'`)) {
+                    btn.classList.add("active");
+                    break;
+                }
+            }
+            
+            // Se for a página do jogo, inicializa uma carta
+            if (pageId === 'game') {
+                newCard();
+                updateTeamDisplay();
+            }
+            
+            // Se for a página do placar, atualiza os valores
+            if (pageId === 'score') {
+                updateScoreDisplay();
+            }
+            
+            // Play sound
+            playSound('click');
+        }
+        
+        // Inicializa uma nova carta
+        function newCard() {
+            // Pausa o cronômetro se estiver rodando
+            clearInterval(timerInterval);
+            
+            // Reseta o tempo
+            timeLeft = TOTAL_TIME;
+            document.getElementById("timer").textContent = timeLeft;
+            document.getElementById("progressBar").style.width = '100%';
+            document.getElementById("timerContainer").classList.remove("warning");
+            
+            // Reseta os passes
+            passesLeft = MAX_PASSES;
+            document.getElementById("passesLeft").textContent = passesLeft;
+            
+            // Habilita o botão de passar
+            document.getElementById("passBtn").disabled = false;
+            
+            // Sorteia uma nova carta
+            currentCard = [...cartas[Math.floor(Math.random() * cartas.length)]];
+            selectedWordIndex = -1;
+            wordsState = new Array(currentCard.length).fill(0);
+            
+            // Exibe as palavras na tela
+            const wordsGrid = document.getElementById("wordsGrid");
+            wordsGrid.innerHTML = "";
+            
+            currentCard.forEach((word, index) => {
+                const card = document.createElement("div");
+                card.className = "word-card";
+                card.dataset.index = index;
+                card.innerHTML = `
+                    ${word}
+                    <div class="word-status" style="display: none;">
+                        <i class="fas fa-check"></i> <span>Aguardando</span>
+                    </div>
+                    ${dicas[word] ? `<button class="word-hint-btn" onclick="showHint('${word}')" title="Ver dica"><i class="fas fa-lightbulb"></i></button>` : ''}
+                `;
+                
+                // Adiciona evento de clique para selecionar a palavra
+                card.addEventListener('click', function() {
+                    selectWord(index);
+                });
+                
+                wordsGrid.appendChild(card);
+            });
+            
+            // Atualiza contadores
+            updateCounters();
+            
+            // Inicia o cronômetro
+            startTimer();
+            
+            // Adiciona ao histórico
+            addToHistory(`Nova carta para Equipe ${currentTeam}`);
+            
+            // Play sound
+            playSound('newCard');
+        }
+        
+        // Seleciona uma palavra para marcar como acertada ou passada
+        function selectWord(index) {
+            // Só permite selecionar palavras não jogadas
+            if (wordsState[index] !== 0) return;
+            
+            // Remove seleção anterior
+            if (selectedWordIndex !== -1) {
+                const prevCard = document.querySelector(`.word-card[data-index="${selectedWordIndex}"]`);
+                if (prevCard) prevCard.classList.remove("selected");
+            }
+            
+            // Seleciona nova palavra
+            selectedWordIndex = index;
+            const card = document.querySelector(`.word-card[data-index="${index}"]`);
+            card.classList.add("selected");
+            
+            // Atualiza visualmente
+            if (animationsEnabled) {
+                card.classList.add("pulse");
+                setTimeout(() => card.classList.remove("pulse"), 500);
+            }
+            
+            // Play sound
+            playSound('select');
+        }
+        
+        // Marca a palavra selecionada como acertada ou passada
+        function markWord(type) {
+            if (selectedWordIndex === -1) {
+                alert("Selecione uma palavra primeiro clicando nela!");
+                playSound('error');
+                return;
+            }
+            
+            if (wordsState[selectedWordIndex] !== 0) {
+                alert("Esta palavra já foi jogada!");
+                playSound('error');
+                return;
+            }
+            
+            const word = currentCard[selectedWordIndex];
+            const card = document.querySelector(`.word-card[data-index="${selectedWordIndex}"]`);
+            
+            if (type === 'correct') {
+                // Marca como acertada
+                wordsState[selectedWordIndex] = 1;
+                card.classList.add("word-guessed");
+                card.classList.remove("selected");
+                card.querySelector(".word-status").innerHTML = '<i class="fas fa-check-circle"></i> <span>Acertado</span>';
+                card.querySelector(".word-status").style.display = 'flex';
+                
+                // Adiciona ponto
+                if (currentTeam === 'A') {
+                    teamAScore++;
+                    document.getElementById("teamAScore").textContent = teamAScore;
+                } else {
+                    teamBScore++;
+                    document.getElementById("teamBScore").textContent = teamBScore;
+                }
+                
+                // Adiciona ao histórico
+                addToHistory(`Equipe ${currentTeam} acertou: ${word}`);
+                
+                // Play sound
+                playSound('correct');
+                
+                // Verifica se completou todas as palavras
+                if (wordsState.every(state => state !== 0)) {
+                    setTimeout(() => {
+                        // Bônus por completar todas
+                        const bonus = BONUS_POINTS;
+                        if (currentTeam === 'A') {
+                            teamAScore += bonus;
+                            document.getElementById("teamAScore").textContent = teamAScore;
+                        } else {
+                            teamBScore += bonus;
+                            document.getElementById("teamBScore").textContent = teamBScore;
+                        }
+                        
+                        addToHistory(`Equipe ${currentTeam} completou todas as palavras! +${bonus} pontos bônus!`);
+                        alert(`🎉 Parabéns, Equipe ${currentTeam}! Vocês acertaram todas as palavras e ganharam ${bonus} pontos bônus!`);
+                        endTurn();
+                    }, 500);
+                }
+            } else if (type === 'pass') {
+                // Verifica se ainda tem passes
+                if (passesLeft <= 0) {
+                    alert("Você não tem mais passes disponíveis!");
+                    playSound('error');
+                    return;
+                }
+                
+                // Marca como passada
+                wordsState[selectedWordIndex] = 2;
+                passesLeft--;
+                document.getElementById("passesLeft").textContent = passesLeft;
+                card.classList.add("word-passed");
+                card.classList.remove("selected");
+                card.querySelector(".word-status").innerHTML = '<i class="fas fa-forward"></i> <span>Passado</span>';
+                card.querySelector(".word-status").style.display = 'flex';
+                
+                // Desabilita o botão de passar se não houver mais passes
+                if (passesLeft === 0) {
+                    document.getElementById("passBtn").disabled = true;
+                }
+                
+                // Adiciona ao histórico
+                addToHistory(`Equipe ${currentTeam} passou: ${word}`);
+                
+                // Play sound
+                playSound('pass');
+                
+                // Verifica se passou todas as palavras (improvável, mas possível)
+                if (wordsState.every(state => state !== 0)) {
+                    setTimeout(() => {
+                        alert(`Turno da Equipe ${currentTeam} finalizado!`);
+                        endTurn();
+                    }, 500);
+                }
+            }
+            
+            // Atualiza contadores
+            updateCounters();
+            
+            // Deseleciona
+            selectedWordIndex = -1;
+        }
+        
+        // Atualiza os contadores de palavras
+        function updateCounters() {
+            const guessed = wordsState.filter(state => state === 1).length;
+            const passed = wordsState.filter(state => state === 2).length;
+            const remaining = wordsState.filter(state => state === 0).length;
+            
+            document.getElementById("guessedCount").textContent = guessed;
+            document.getElementById("passedCount").textContent = passed;
+            document.getElementById("remainingCount").textContent = remaining;
+        }
+        
+        // Inicia o cronômetro
+        function startTimer() {
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").textContent = timeLeft;
+                
+                // Atualiza barra de progresso
+                const progress = (timeLeft / TOTAL_TIME) * 100;
+                document.getElementById("progressBar").style.width = `${progress}%`;
+                
+                // Alerta visual quando o tempo está acabando
+                if (timeLeft <= 10) {
+                    document.getElementById("timerContainer").classList.add("warning");
+                    
+                    // Som de tic-tac nos últimos 5 segundos
+                    if (timeLeft <= 5 && soundsEnabled) {
+                        playSound('tick');
+                    }
+                }
+                
+                // Tempo esgotado
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("timerContainer").classList.add("warning");
+                    playSound('timeout');
+                    setTimeout(() => {
+                        alert(`⏰ Tempo esgotado para a Equipe ${currentTeam}!`);
+                        endTurn();
+                    }, 500);
+                }
+            }, 1000);
+        }
+        
+        // Finaliza o turno da equipe atual
+        function endTurn() {
+            clearInterval(timerInterval);
+            
+            // Calcula pontos da rodada
+            const guessed = wordsState.filter(state => state === 1).length;
+            
+            // Adiciona ao histórico
+            addToHistory(`Turno da Equipe ${currentTeam} finalizado. Acertaram ${guessed} palavra(s).`);
+            
+            // Alterna a equipe
+            currentTeam = currentTeam === 'A' ? 'B' : 'A';
+            
+            // Atualiza a exibição das equipes
+            updateTeamDisplay();
+            
+            // Play sound
+            playSound('turnEnd');
+            
+            // Prepara nova carta para a próxima equipe
+            setTimeout(() => {
+                if (confirm(`Equipe ${currentTeam}, preparem-se! Deseja começar uma nova rodada?`)) {
+                    newCard();
+                }
+            }, 1000);
+        }
+        
+        // Atualiza a exibição das equipes
+        function updateTeamDisplay() {
+            const teamA = document.getElementById("teamA");
+            const teamB = document.getElementById("teamB");
+            
+            if (currentTeam === 'A') {
+                teamA.classList.add("active");
+                teamB.classList.remove("active");
+                teamA.querySelector(".current-turn").textContent = "JOGANDO AGORA";
+                teamB.querySelector(".current-turn").textContent = "AGUARDANDO";
+            } else {
+                teamA.classList.remove("active");
+                teamB.classList.add("active");
+                teamA.querySelector(".current-turn").textContent = "AGUARDANDO";
+                teamB.querySelector(".current-turn").textContent = "JOGANDO AGORA";
+            }
+        }
+        
+        // Mostra dica para uma palavra
+        function showHint(word) {
+            const hintText = dicas[word] || `Não há dica disponível para "${word}". Tente pensar em histórias bíblicas relacionadas.`;
+            document.getElementById("hintText").innerHTML = `
+                <h4>${word}</h4>
+                <p>${hintText}</p>
+                <p style="margin-top: 15px; font-style: italic; color: #666;">
+                    Dica: Tente descrever a palavra sem usar ela mesma ou partes dela.
+                </p>
+            `;
+            document.getElementById("hintModal").classList.add("active");
+            playSound('hint');
+        }
+        
+        // Fecha o modal de dica
+        function closeHint() {
+            document.getElementById("hintModal").classList.remove("active");
+        }
+        
+        // Ajusta pontuação manualmente
+        function adjustScore(team, points) {
+            if (team === 'A') {
+                teamAScore += points;
+                if (teamAScore < 0) teamAScore = 0;
+                addToHistory(`Pontuação da Equipe A ajustada em ${points > 0 ? '+' : ''}${points} pontos`);
+            } else {
+                teamBScore += points;
+                if (teamBScore < 0) teamBScore = 0;
+                addToHistory(`Pontuação da Equipe B ajustada em ${points > 0 ? '+' : ''}${points} pontos`);
+            }
+            updateScoreDisplay();
+            playSound('click');
+        }
+        
+        // Atualiza a exibição do placar
+        function updateScoreDisplay() {
+            document.getElementById("scoreTeamA").textContent = teamAScore;
+            document.getElementById("scoreTeamB").textContent = teamBScore;
+            document.getElementById("teamAScore").textContent = teamAScore;
+            document.getElementById("teamBScore").textContent = teamBScore;
+        }
+        
+        // Adiciona entrada ao histórico
+        function addToHistory(message) {
+            const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            gameHistory.unshift({
+                time: timestamp,
+                message: message,
+                team: currentTeam
+            });
+            
+            // Mantém apenas as últimas 15 entradas
+            if (gameHistory.length > 15) {
+                gameHistory = gameHistory.slice(0, 15);
+            }
+            
+            // Atualiza a exibição do histórico
+            const historyList = document.getElementById("historyList");
+            historyList.innerHTML = "";
+            
+            gameHistory.forEach(item => {
+                const li = document.createElement("li");
+                li.className = "history-item";
+                li.innerHTML = `
+                    <span>${item.message}</span>
+                    <span class="history-time">${item.time}</span>
+                `;
+                historyList.appendChild(li);
+            });
+            
+            // Salva no localStorage
+            saveGameState();
+        }
+        
+        // Reinicia o jogo
+        function resetGame() {
+            if (confirm("Tem certeza que deseja reiniciar o jogo? Todas as pontuações serão perdidas.")) {
+                clearInterval(timerInterval);
+                
+                currentTeam = 'A';
+                teamAScore = 0;
+                teamBScore = 0;
+                passesLeft = MAX_PASSES;
+                timeLeft = TOTAL_TIME;
+                gameHistory = [];
+                
+                updateTeamDisplay();
+                updateScoreDisplay();
+                
+                // Limpa o histórico
+                document.getElementById("historyList").innerHTML = "";
+                
+                // Adiciona mensagem inicial
+                addToHistory("Jogo reiniciado. Boa sorte!");
+                
+                // Se estiver na página do jogo, cria nova carta
+                if (document.getElementById("game").classList.contains("active")) {
+                    newCard();
+                }
+                
+                alert("Jogo reiniciado com sucesso!");
+                playSound('reset');
+            }
+        }
+        
+        // Exporta placar
+        function exportScores() {
+            const exportText = `PLACAR - 30 SEGUNDOS EVANGÉLICO\n\n` +
+                              `Equipe A: ${teamAScore} pontos\n` +
+                              `Equipe B: ${teamBScore} pontos\n\n` +
+                              `Última atualização: ${new Date().toLocaleString()}\n\n` +
+                              `Histórico:\n` +
+                              gameHistory.map(item => `[${item.time}] ${item.message}`).join('\n');
+            
+            // Cria um blob e faz download
+            const blob = new Blob([exportText], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `placar-30segundos-${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addToHistory("Placar exportado para arquivo de texto");
+            playSound('export');
+        }
+        
+        // Toggle sons
+        function toggleSounds() {
+            soundsEnabled = !soundsEnabled;
+            document.getElementById("soundSwitch").checked = soundsEnabled;
+            document.getElementById("soundToggle").innerHTML = soundsEnabled ? 
+                '<i class="fas fa-volume-up"></i> Som' : 
+                '<i class="fas fa-volume-mute"></i> Som';
+            playSound('click');
+        }
+        
+        // Toggle tela cheia
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Erro ao tentar entrar em tela cheia: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+            playSound('click');
+        }
+        
+        // Tela sons via switch
+        document.getElementById("soundSwitch").addEventListener('change', function() {
+            soundsEnabled = this.checked;
+            playSound('click');
+        });
+        
+        // Toggle atalhos via switch
+        document.getElementById("shortcutsSwitch").addEventListener('change', function() {
+            shortcutsEnabled = this.checked;
+            playSound('click');
+        });
+        
+        // Toggle animações via switch
+        document.getElementById("animationsSwitch").addEventListener('change', function() {
+            animationsEnabled = this.checked;
+            playSound('click');
+        });
+        
+        // Sistema de sons simples
+        function playSound(type) {
+            if (!soundsEnabled) return;
+            
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Configurações baseadas no tipo de som
+                switch(type) {
+                    case 'correct':
+                        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                        break;
+                        
+                    case 'pass':
+                        oscillator.frequency.setValueAtTime(392.00, audioContext.currentTime); // G4
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.2);
+                        break;
+                        
+                    case 'click':
+                        oscillator.frequency.setValueAtTime(440.00, audioContext.currentTime); // A4
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.1);
+                        break;
+                        
+                    case 'newCard':
+                        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime); // E5
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.4);
+                        break;
+                        
+                    case 'timeout':
+                        oscillator.frequency.setValueAtTime(220.00, audioContext.currentTime); // A3
+                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.5);
+                        break;
+                        
+                    case 'tick':
+                        oscillator.frequency.setValueAtTime(880.00, audioContext.currentTime); // A5
+                        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.05);
+                        break;
+                        
+                    case 'hint':
+                        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.2);
+                        break;
+                        
+                    case 'turnEnd':
+                        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                        oscillator.frequency.setValueAtTime(392.00, audioContext.currentTime + 0.1); // G4
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                        break;
+                        
+                    case 'reset':
+                        oscillator.frequency.setValueAtTime(392.00, audioContext.currentTime); // G4
+                        oscillator.frequency.setValueAtTime(293.66, audioContext.currentTime + 0.1); // D4
+                        oscillator.frequency.setValueAtTime(220.00, audioContext.currentTime + 0.2); // A3
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.4);
+                        break;
+                        
+                    case 'export':
+                        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime); // E5
+                        oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.1); // G5
+                        gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                        break;
+                        
+                    case 'error':
+                        oscillator.frequency.setValueAtTime(220.00, audioContext.currentTime); // A3
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.2);
+                        break;
+                }
+            } catch (e) {
+                console.log("AudioContext não suportado ou bloqueado pelo navegador");
+            }
+        }
+        
+        // Sistema de teclas de atalho
+        document.addEventListener('keydown', function(e) {
+            if (!shortcutsEnabled) return;
+            
+            // Só processa atalhos se estiver na página do jogo
+            if (!document.getElementById("game").classList.contains("active")) return;
+            
+            switch(e.key.toLowerCase()) {
+                case ' ': // Espaço - Acertar
+                    e.preventDefault();
+                    markWord('correct');
+                    break;
+                    
+                case 'p': // P - Passar
+                    e.preventDefault();
+                    markWord('pass');
+                    break;
+                    
+                case 'n': // N - Nova carta
+                    e.preventDefault();
+                    newCard();
+                    break;
+                    
+                case 'e': // E - Finalizar turno
+                    e.preventDefault();
+                    endTurn();
+                    break;
+                    
+                case '1': // 1 - Selecionar primeira palavra
+                case '2': // 2 - Selecionar segunda palavra
+                case '3': // 3 - Selecionar terceira palavra
+                case '4': // 4 - Selecionar quarta palavra
+                case '5': // 5 - Selecionar quinta palavra
+                    e.preventDefault();
+                    const index = parseInt(e.key) - 1;
+                    if (index < currentCard.length) {
+                        selectWord(index);
+                    }
+                    break;
+            }
+        });
+        
+        // Fecha modal de dica com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeHint();
+            }
+        });
+        
+        // Salva estado do jogo no localStorage
+        function saveGameState() {
+            const gameState = {
+                teamAScore: teamAScore,
+                teamBScore: teamBScore,
+                currentTeam: currentTeam,
+                gameHistory: gameHistory,
+                soundsEnabled: soundsEnabled,
+                shortcutsEnabled: shortcutsEnabled,
+                animationsEnabled: animationsEnabled
+            };
+            
+            try {
+                localStorage.setItem('trintaSegundosEvangelico', JSON.stringify(gameState));
+            } catch (e) {
+                console.log("Não foi possível salvar o estado do jogo");
+            }
+        }
+        
+        // Carrega estado do jogo do localStorage
+        function loadGameState() {
+            try {
+                const saved = localStorage.getItem('trintaSegundosEvangelico');
+                if (saved) {
+                    const gameState = JSON.parse(saved);
+                    
+                    teamAScore = gameState.teamAScore || 0;
+                    teamBScore = gameState.teamBScore || 0;
+                    currentTeam = gameState.currentTeam || 'A';
+                    gameHistory = gameState.gameHistory || [];
+                    soundsEnabled = gameState.soundsEnabled !== undefined ? gameState.soundsEnabled : true;
+                    shortcutsEnabled = gameState.shortcutsEnabled !== undefined ? gameState.shortcutsEnabled : true;
+                    animationsEnabled = gameState.animationsEnabled !== undefined ? gameState.animationsEnabled : true;
+                    
+                    // Atualiza switches
+                    document.getElementById("soundSwitch").checked = soundsEnabled;
+                    document.getElementById("shortcutsSwitch").checked = shortcutsEnabled;
+                    document.getElementById("animationsSwitch").checked = animationsEnabled;
+                    document.getElementById("soundToggle").innerHTML = soundsEnabled ? 
+                        '<i class="fas fa-volume-up"></i> Som' : 
+                        '<i class="fas fa-volume-mute"></i> Som';
+                    
+                    // Atualiza display
+                    updateScoreDisplay();
+                    updateTeamDisplay();
+                    
+                    // Atualiza histórico
+                    const historyList = document.getElementById("historyList");
+                    historyList.innerHTML = "";
+                    gameHistory.forEach(item => {
+                        const li = document.createElement("li");
+                        li.className = "history-item";
+                        li.innerHTML = `
+                            <span>${item.message}</span>
+                            <span class="history-time">${item.time}</span>
+                        `;
+                        historyList.appendChild(li);
+                    });
+                    
+                    if (gameHistory.length === 0) {
+                        addToHistory("Jogo carregado. Boa sorte!");
+                    }
+                }
+            } catch (e) {
+                console.log("Não foi possível carregar o estado do jogo");
+            }
+        }
+        
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        document.addEventListener("DOMContentLoaded", function() {
+            // Define o ano atual no rodapé
+            document.getElementById("currentYear").textContent = new Date().getFullYear();
+            
+            // Carrega estado salvo do jogo
+            loadGameState();
+            
+            // Inicializa a primeira carta se estiver na página do jogo
+            if (document.getElementById("game").classList.contains("active")) {
+                newCard();
+            }
+            
+            // Adiciona mensagem inicial se não houver histórico
+            if (gameHistory.length === 0) {
+                addToHistory("Bem-vindo ao 30 Segundos Evangélico!");
+            }
+            
+            // Configura evento para fechar modal clicando fora
+            document.getElementById("hintModal").addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeHint();
+                }
+            });
+            
+            // Configura evento para teclas de atalho nos switches
+            document.querySelectorAll('.switch input').forEach(switchEl => {
+                switchEl.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.checked = !this.checked;
+                        this.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
